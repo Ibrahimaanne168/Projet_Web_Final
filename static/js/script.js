@@ -32,3 +32,6 @@ setInterval(() => {
     current = (current + 1) % slides.length;
     showSlide(current);
 }, 5000);
+
+/*javascript du galerie */
+
