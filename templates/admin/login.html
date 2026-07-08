@@ -1,0 +1,39 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Connexion admin | UFR STA{% endblock %}
+
+{% block content %}
+<section class="login-hero">
+    <h1>Connexion administrateur</h1>
+    <p>Accédez à l'espace de gestion interne de l'UFR STA.</p>
+</section>
+
+<section class="login-panel">
+    <form class="login-form" method="POST">
+        <h2>Se connecter</h2>
+
+        <div class="login-fields">
+            <input type="text" name="username" placeholder="Nom d'utilisateur" required autocomplete="username">
+            <input type="password" name="password" placeholder="Mot de passe" required autocomplete="current-password">
+        </div>
+
+        <button type="submit">
+            <i class="fas fa-lock"></i>
+            Se connecter
+        </button>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                <div class="flash {{ category }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+
+        <a href="{{ url_for('index') }}" class="btn-retour">
+            ← Retour à l’accueil
+        </a>
+    </form>
+</section>
+{% endblock %}

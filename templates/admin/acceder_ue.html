@@ -1,0 +1,199 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Gestion des UE{% endblock %}
+
+{% block content %}
+
+<section class="acces-actu">
+
+    <div class="titre-actu-acces">
+
+        <h1>
+
+            <i class="fas fa-table"></i>
+
+            Gestion des UE
+
+        </h1>
+
+        <a href="{{ url_for('acceder_formation') }}" class="btn-retour">
+
+            <i class="fas fa-arrow-left"></i>
+
+            Retour
+
+        </a>
+
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+
+                <div class="flash {{ category }}">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" class="acces-actu-form">
+
+        <h2>
+
+            {% if ue %}
+                Modifier une UE
+            {% else %}
+                Ajouter une UE
+            {% endif %}
+
+        </h2>
+
+        <input
+            type="hidden"
+            name="id"
+            value="{{ ue.id if ue else '' }}">
+
+        <select name="semestre_id" required>
+
+            <option value="">Choisir un semestre</option>
+
+            {% for semestre in semestres %}
+
+            <option
+                value="{{ semestre.id }}"
+                {% if ue and ue.semestre_id == semestre.id %}selected{% endif %}>
+
+                {{ semestre.filiere }} - Semestre {{ semestre.numero }}
+
+            </option>
+
+            {% endfor %}
+
+        </select>
+
+        <input
+            type="text"
+            name="ue"
+            placeholder="UE"
+            value="{{ ue.ue if ue else '' }}"
+            required>
+
+        <textarea
+            name="ec"
+            rows="5"
+            placeholder="EC"
+            required>{{ ue.ec if ue else '' }}</textarea>
+
+        <input
+            type="text"
+            name="credits"
+            placeholder="Crédits"
+            value="{{ ue.credits if ue else '' }}">
+
+        <input
+            type="number"
+            name="ordre"
+            placeholder="Ordre"
+            value="{{ ue.ordre if ue else '1' }}">
+
+        <button type="submit">
+
+            <i class="fas fa-save"></i>
+
+            {% if ue %}
+                Enregistrer les modifications
+            {% else %}
+                Ajouter l'UE
+            {% endif %}
+
+        </button>
+
+    </form>
+
+    {% set groupe = namespace(filiere='', semestre=0) %}
+
+    {% for ue in ues %}
+
+        {% if groupe.filiere != ue.filiere %}
+
+            {% set groupe.filiere = ue.filiere %}
+            {% set groupe.semestre = 0 %}
+
+            <h2 class="titre-filiere">
+
+                {{ ue.filiere }}
+
+            </h2>
+
+        {% endif %}
+
+        {% if groupe.semestre != ue.numero %}
+
+            {% set groupe.semestre = ue.numero %}
+
+            <h3 class="titre-semestre">
+
+                Semestre {{ ue.numero }}
+
+            </h3>
+
+        {% endif %}
+
+        <article class="carte-actu-acces">
+
+            <div class="contenu-actu-acces">
+
+                <h2>{{ ue.ue }}</h2>
+
+                <p>
+
+                    {{ ue.ec }}
+
+                </p>
+
+                <small>
+
+                    {{ ue.credits }} crédits
+
+                </small>
+
+                <div class="actions">
+
+                    <a
+                        href="{{ url_for('acceder_ue', modifier=ue.id) }}"
+                        class="btn-modifier">
+
+                        <i class="fas fa-pen"></i>
+
+                        Modifier
+
+                    </a>
+
+                    <a
+                        href="{{ url_for('acceder_ue', supprimer=ue.id) }}"
+                        class="btn-supprimer"
+                        onclick="return confirm('Supprimer cette UE ?')">
+
+                        <i class="fas fa-trash"></i>
+
+                        Supprimer
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </article>
+
+    {% else %}
+
+        <p>Aucune UE enregistrée.</p>
+
+    {% endfor %}
+
+</section>
+
+{% endblock %}
