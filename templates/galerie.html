@@ -1,88 +1,10 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galerie | UFR STA</title>
+{% extends "base.html" %}
 
-    <link rel="stylesheet" href="../static/css/style.css">
+{% block title %}Galerie | UFR STA{% endblock %}
 
-    <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-    <link rel="icon" href="../static/images/Logo_STA.png">
-</head>
-
-<body>
-
-<div class="uam">
-
-    <img src="../static/images/logo_UAM.png" alt="Logo UAM" class="logo_uam">
-
-    <div class="nom_uam">
-        UNIVERSITE <br>
-        AMADOU MAHTAR MBOW
-    </div>
-
-    <a href="https://uam.sn" target="_blank">
-
-        <span>Site officiel</span>
-
-        <span class="icon">↗</span>
-
-    </a>
-
-</div>
-
-<header>
-
-    <div class="logo-titre">
-
-        <img src="../static/images/Logo_STA.png" alt="Logo STA" class="logo">
-
-        <h1>
-
-            UFR <br>
-
-            SCIENCES ET <br>
-
-            TECHNOLOGIES AVANCEES
-
-        </h1>
-
-        <div class="menu-defilant">
-
-            &#9776;
-
-        </div>
-
-    </div>
-
-    <nav>
-
-        <ul>
-
-            <li><a href="index.html">Accueil</a></li>
-
-            <li><a href="actualites.html">Actualités</a></li>
-
-            <li><a href="activites.html">Activités</a></li>
-
-            <li><a href="departements.html">Départements</a></li>
-
-            <li><a href="formations.html">Formations</a></li>
-
-            <li><a href="galerie.html">Galerie</a></li>
-
-            <li><a href="contact.html">Contact</a></li>
-
-        </ul>
-
-    </nav>
-
-</header>
 
 <main>
+    {% block content %}
 
 <section class="hero-galerie">
 
@@ -115,7 +37,7 @@
 
     <div class="hero-image">
 
-        <img src="../static/images/im3.png" alt="Galerie">
+        <img src="../static/images/pho.png" alt="Galerie">
 
     </div>
 
@@ -140,63 +62,7 @@
 
 </section>
 
-<section class="album">
-
-    <div class="album-header">
-
-        <div>
-
-            <span class="album-date">
-
-                <i class="fas fa-calendar-alt"></i>
-
-                Juin 2026
-
-            </span>
-
-            <h2>
-
-                Journée d'Excellence
-
-            </h2>
-
-            <p>
-
-                Cérémonie de remise des distinctions aux meilleurs étudiants,
-                exposition des projets innovants, rencontres entre enseignants,
-                partenaires et étudiants dans une ambiance de célébration.
-
-            </p>
-
-        </div>
-
-        <a href="activites.html#journee-excellence" class="btn-evenement">
-
-            Voir l'événement
-
-            <i class="fas fa-arrow-right"></i>
-
-        </a>
-
-    </div>
-
-    <div class="album-grid">
-
-        <img src="../static/images/excellence1.jpeg" alt="">
-
-        <img src="../static/images/excellence2.png" alt="">
-
-        <img src="../static/images/excellence3.png" alt="">
-
-        <img src="../static/images/excellence4.png" alt="">
-
-        <img src="../static/images/excellence5.png" alt="">
-
-        <img src="../static/images/excellence6.png" alt="">
-
-    </div>
-
-</section>
+{% for album in albums %}
 
 <section class="album">
 
@@ -208,31 +74,19 @@
 
                 <i class="fas fa-calendar-alt"></i>
 
-                Mai 2026
+                {{ album.date_album }}
 
             </span>
 
-            <h2>
+            <h2>{{ album.titre_album }}</h2>
 
-                Compétition de Génie en Herbe
-
-            </h2>
-
-            <p>
-
-                Les départements de l'UFR STA s'affrontent autour d'épreuves
-                scientifiques, logiques et culturelles. Les finalistes sont
-                récompensés lors de la Journée d'Excellence.
-
-            </p>
+            <p>{{ album.description_album }}</p>
 
         </div>
 
-        <a href="activites.html#genie-herbe" class="btn-evenement">
+        <a href="{{ url_for('activites') }}#{{ album.lien_activite }}" class="btn-evenement">
 
             Voir l'événement
-
-            <i class="fas fa-arrow-right"></i>
 
         </a>
 
@@ -240,275 +94,20 @@
 
     <div class="album-grid">
 
-        <img src="../static/images/genie1.png" alt="">
+        {% for photo in album.photos %}
 
-        <img src="../static/images/genie2.png" alt="">
+        <img src="{{ url_for('static', filename='images/' ~ photo.image_album) }}" alt="{{ photo.description }}" class="album-photo">
 
-        <img src="../static/images/genie3.png" alt="">
-
-        <img src="../static/images/genie4.png" alt="">
-
-        <img src="../static/images/genie5.png" alt="">
-
-        <img src="../static/images/genie-herbe.png" alt="">
+        {% endfor %}
 
     </div>
 
 </section>
 
-<section class="album">
+{% endfor %}
 
-    <div class="album-header">
-
-        <div>
-
-            <span class="album-date">
-
-                <i class="fas fa-calendar-alt"></i>
-
-                Avril 2026
-
-            </span>
-
-            <h2>
-
-                Sortie Pédagogique des étudiants de Licence 3 SML
-
-            </h2>
-
-            <p>
-
-                Une immersion sur le terrain permettant aux étudiants de mettre
-                en pratique leurs connaissances, de découvrir le monde
-                professionnel et d'échanger avec des spécialistes du domaine.
-
-            </p>
-
-        </div>
-
-        <a href="activites.html#sortie-pedagogique" class="btn-evenement">
-
-            Voir l'événement
-
-            <i class="fas fa-arrow-right"></i>
-
-        </a>
-
-    </div>
-
-    <div class="album-grid">
-
-        <img src="../static/images/sortie1.png" alt="">
-
-        <img src="../static/images/sortie2.png" alt="">
-
-        <img src="../static/images/sortie3.png" alt="">
-
-        <img src="../static/images/sortie4.png" alt="">
-
-        <img src="../static/images/sortie5.png" alt="">
-
-        <img src="../static/images/sortie6.png" alt="">
-
-    </div>
-
-</section>
-
-<section class="album">
-
-    <div class="album-header">
-
-        <div>
-
-            <span class="album-date">
-
-                <i class="fas fa-calendar-alt"></i>
-
-                Mars 2026
-
-            </span>
-
-            <h2>
-
-                Présentation des Projets IoT
-
-            </h2>
-
-            <p>
-
-                Les étudiants de Licence 3 Informatique présentent leurs
-                réalisations en Internet des Objets devant les enseignants,
-                les étudiants et les partenaires de l'UFR STA.
-
-            </p>
-
-        </div>
-
-        <a href="activites.html#projets-iot" class="btn-evenement">
-
-            Voir l'événement
-
-            <i class="fas fa-arrow-right"></i>
-
-        </a>
-
-    </div>
-
-    <div class="album-grid">
-
-        <img src="../static/images/projets-iot.png" alt="">
-
-        <img src="../static/images/iot2.png" alt="">
-
-        <img src="../static/images/iot3.png" alt="">
-
-        <img src="../static/images/iot4.png" alt="">
-
-        <img src="../static/images/iot5.png" alt="">
-
-        <img src="../static/images/iot6.png" alt="">
-
-    </div>
-
-</section>
-
-<section class="album">
-
-    <div class="album-header">
-
-        <div>
-
-            <span class="album-date">
-
-                <i class="fas fa-calendar-alt"></i>
-
-                Février 2026
-
-            </span>
-
-            <h2>
-
-                Conférences Modelisation
-
-            </h2>
-
-            <p>
-
-               Les enseignants-chercheurs et les étudiants présentent leurs
-                travaux de recherche, leurs projets innovants et les résultats
-                obtenus dans les différents départements.
- 
-
-            </p>
-
-        </div>
-
-        <a href="activites.html#conferences" class="btn-evenement">
-
-            Voir l'événement
-
-            <i class="fas fa-arrow-right"></i>
-
-        </a>
-
-    </div>
-
-    <div class="album-grid">
-
-        <img src="../static/images/conf1.png" alt="">
-
-        <img src="../static/images/conf2.png" alt="">
-
-        <img src="../static/images/conf3.png" alt="">
-
-        <img src="../static/images/conf4.png" alt="">
-
-        <img src="../static/images/conf5.png" alt="">
-
-        <img src="../static/images/conf6.png" alt="">
-
-    </div>
-
-</section>
-  
-
-
+    {% endblock %}
 
 </main>
 
-<footer class="footer">
-
-    <div class="footer-top">
-
-        <img src="../static/images/Logo_STA.png" alt="Logo STA" class="footer-logo">
-
-        <h2>UFR Sciences et Technologies Avancées</h2>
-
-        <p>
-
-            Excellence, innovation et recherche au service des sciences et des technologies.
-
-        </p>
-
-    </div>
-
-    <div class="footer-section">
-
-        <h3>Liens utiles</h3>
-
-        <ul>
-
-            <li><a href="https://uam.sn" target="_blank">➜ Université Amadou Mahtar Mbow</a></li>
-
-            <li><a href="https://directiondesbourses.sn" target="_blank">➜ Direction des Bourses</a></li>
-
-            <li><a href="https://www.crousuam.sn" target="_blank">➜ Crous Diamniadio</a></li>
-
-            <li><a href="https://mesrisenegal.sn" target="_blank">➜ Ministère de l'Enseignement Supérieur</a></li>
-
-        </ul>
-
-    </div>
-
-    <div class="footer-section">
-
-        <h3>Contact</h3>
-
-        <p><i class="fas fa-map-marker-alt"></i> Université Amadou Mahtar Mbow</p>
-
-        <p><i class="fas fa-envelope"></i> ufr-sta@uam.edu.sn</p>
-
-    </div>
-
-    <div class="socials">
-
-        <a href="#"><i class="fab fa-facebook-f"></i></a>
-
-        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-
-        <a href="#"><i class="fab fa-youtube"></i></a>
-
-    </div>
-
-    <div class="footer-bottom">
-
-        © 2026 UFR Sciences et Technologies Avancées
-
-    </div>
-
-</footer>
-
-<div class="lightbox">
-
-    <span class="close-lightbox">&times;</span>
-
-    <img class="lightbox-image" src="" alt="">
-
-</div>
-
-<script src="../static/js/script.js"></script>
-
-</body>
-
-</html>
 

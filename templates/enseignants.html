@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block title %}Enseignants | UFR STA{% endblock %}
+
+<main>
+
+{% block content %}
+
+<section class="enseignants">
+
+        <div class="titre-directeur">
+        <i class="fas fa-user-tie"></i>
+
+        <div>
+            <h2>Nos Enseignants</h2>
+            <div class="trait"></div>
+        </div>
+    </div>
+
+
+    <p class="section-description">
+        <strong>L'UFR STA</strong> compte plusieurs enseignants <strong> plus que qualifiés et expérimentés dans leurs domaines respectifs.</strong> Ils sont engagés dans la recherche scientifique et l'enseignement de qualité, contribuant ainsi à la formation des étudiants et au développement des connaissances dans les domaines des sciences.
+    </p>
+
+        <div class="enseignants-grid">
+
+    {% for enseignant in enseignants %}
+
+    <div class="enseignant-card"
+        onclick="ouvrirPopupDepuisCarte(this)"
+        data-nom="{{ enseignant.nom|e }}"
+        data-grade="{{ enseignant.grade|e }}"
+        data-departement="{{ enseignant.departement|e }}"
+        data-email="{{ enseignant.email|e }}"
+        data-recherche="{{ enseignant.recherche|e }}"
+        data-photo="{{ url_for('static', filename='images/' ~ enseignant.photo) }}">
+
+        <img src="{{ url_for('static', filename='images/' ~ enseignant.photo) }}"
+            alt="Photo de {{ enseignant.nom }}"
+            class="enseignant-photo">
+
+        <h3>{{ enseignant.nom }}</h3>
+
+        <span>{{ enseignant.grade }}</span>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+<div class="actions-enseignants">
+    <a href="{{ url_for('formations') }}" class="btn-formation">
+        <i class="fas fa-graduation-cap"></i>
+        Voir les formations
+    </a>
+</div>
+
+</section>
+
+
+<!-- POPUP -->
+<div id="popup-prof" class="popup">
+
+    <div class="popup-box">
+
+        <button type="button" class="fermer" onclick="fermerPopup()" aria-label="Fermer">
+            <i class="fas fa-times" aria-hidden="true"></i>
+        </button>
+
+        <div class="popup-header">
+
+            <img id="popup-photo" src="-" alt="Photo de l'enseignant">
+
+            <h2 id="popup-nom">Nom de l'enseignant</h2>
+
+            <p id="popup-grade" class="grade"></p>
+
+        </div>
+
+        <div class="popup-body">
+
+            <div class="info-card">
+                <i class="fas fa-building"></i>
+
+                <div>
+                    <h4>Département</h4>
+                    <p id="popup-departement"></p>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <i class="fas fa-envelope"></i>
+
+                <div>
+                    <h4>Email professionnel</h4>
+                    <a id="popup-email" href="#">Contacter par email</a>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <i class="fas fa-flask"></i>
+
+                <div>
+                    <h4>Domaines de recherche</h4>
+                    <p id="popup-recherche"></p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
+    </main>

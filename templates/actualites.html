@@ -1,77 +1,14 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Actualités | UFR Sciences et Technologies Avancées</title>
-    <link rel="stylesheet" href="../static/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="icon" href="../static/images/Logo_STA.png">
-</head>
-<body>
+{% extends "base.html" %}
 
-<div class="uam">
-    <img src="../static/images/logo_UAM.png" alt="Logo UAM" class="logo_uam">
+{% block title %}Actualités | UFR STA{% endblock %}
 
-    <div class="nom_uam">
-        UNIVERSITE <br>
-        AMADOU MAHTAR MBOW
-    </div>
-
-    <a href="https://uam.sn" target="_blank">
-        <span>Site officiel</span>
-        <span class="icon">↗</span>
-    </a>
-</div>
-
-<header>
-
-    <div class="logo-titre">
-
-        <img src="../static/images/Logo_STA.png" alt="Logo UFR STA" class="logo">
-
-        <h1>
-            UFR <br>
-            SCIENCES ET <br>
-            TECHNOLOGIES AVANCEES
-        </h1>
-
-        <div class="menu-defilant">
-            &#9776;
-        </div>
-
-    </div>
-
-    <nav>
-
-        <ul>
-
-            <li><a href="index.html">Accueil</a></li>
-            <li><a href="actualites.html">Actualités</a></li>
-            <li><a href="activites.html">Activités</a></li>
-            <li><a href="departements.html">Départements</a></li>
-            <li><a href="formations.html">Formations</a></li>
-            <li><a href="galerie.html">Galerie</a></li>
-            <li><a href="contact.html">Contact</a></li>
-
-        </ul>
-
-    </nav>
-
-</header>
 
 <main>
+    {% block content %}
 
 <section class="hero-actualites">
 
-    <div class="overlay"></div>
-
     <div class="hero-contenu">
-
-        <span class="hero-badge">
-            <i class="fas fa-newspaper"></i>
-            UFR STA
-        </span>
 
         <h2>
             Actualités
@@ -151,8 +88,6 @@
 
 <section class="titre-page" id="liste-actualites">
 
-    <span>Vie universitaire</span>
-
     <h2>
         Les dernières actualités
     </h2>
@@ -168,60 +103,16 @@
 
 <section class="actualites-grid">
 
-    <article class="actualite-card actualite-principale">
-
-        <div class="actualite-image">
-
-            <img src="../static/images/journe-mer.png" alt="Journée des Gens de Mer">
-
-            <span class="categorie">
-                Événement
-            </span>
-
-        </div>
-
-        <div class="actualite-contenu">
-
-            <span class="date">
-                <i class="fas fa-calendar"></i>
-                25 Juin 2026
-            </span>
-
-            <h3>
-                Journée Internationale des Gens de Mer
-            </h3>
-
-            <p>
-
-                L'UFR STA informe les étudiants intéressés par les métiers du
-                transport maritime, de la logistique et de l'ingénierie navale de
-                la tenue de la Journée Internationale des Gens de Mer organisée
-                autour du thème :
-
-                <strong>
-                    « Transporter le commerce mondial, supporter les risques. »
-                </strong>
-
-            </p>
-
-            <a href="#" class="btn-lire">
-                Retour
-            </a>
-
-        </div>
-
-    </article>
-
-
+    {% for actualite in actualites %}
 
     <article class="actualite-card">
 
         <div class="actualite-image">
 
-            <img src="../static/images/cours-en-ligne.png" alt="JOJ Dakar">
+            <img src="{{ url_for('static', filename='images/' ~ actualite.image_actu) }}" alt="{{ actualite.titre_actu }}">
 
             <span class="categorie">
-                Information
+                {{ actualite.categorie_actu }}
             </span>
 
         </div>
@@ -230,24 +121,20 @@
 
             <span class="date">
                 <i class="fas fa-calendar"></i>
-                Juin 2026
+                {{ actualite.date_publication }}
             </span>
 
             <h3>
-                Suivi des cours en ligne
+                {{ actualite.titre_actu }}
             </h3>
 
             <p>
-
-                Dans le cadre des préparatifs des Jeux Olympiques de la Jeunesse
-                Dakar 2026, les enseignements en présentiel sont suspendus et les
-                étudiants poursuivent les activités pédagogiques en ligne jusqu'a le 4 juillet 2026.
-
+                {{ actualite.contenu_actu}}
             </p>
 
-            <a href="#" class="btn-lire">
+            <a href="{{ url_for('galerie') }}" class="btn-lire">
 
-                Retour
+                Voir Galerie
 
             </a>
 
@@ -255,281 +142,8 @@
 
     </article>
 
-
-
-    <article class="actualite-card">
-
-        <div class="actualite-image">
-
-            <img src="../static/images/projet-titore.png" alt="Licence 3">
-
-            <span class="categorie">
-                Étudiants
-            </span>
-
-        </div>
-
-        <div class="actualite-contenu">
-
-            <span class="date">
-                <i class="fas fa-calendar"></i>
-                2026
-            </span>
-
-            <h3>
-
-                Information destinée aux étudiants de Licence 3
-
-            </h3>
-
-            <p>
-
-                Les étudiants de Licence 3 sont invités à consulter les dernières
-                informations concernant l'organisation pédagogique, le choix des projets titorée ou stage coditionnées pour la memoire de licence 3.
-
-            </p>
-
-            <a href="#" class="btn-lire">
-
-                Retour
-
-            </a>
-
-        </div>
-
-    </article>
-
-
-
-    <article class="actualite-card">
-
-        <div class="actualite-image">
-
-            <img src="../static/images/conference.png" alt="Journée Scientifique">
-
-            <span class="categorie">
-                Recherche
-            </span>
-
-        </div>
-
-        <div class="actualite-contenu">
-
-            <span class="date">
-                <i class="fas fa-calendar"></i>
-                2026
-            </span>
-
-            <h3>
-
-                Conference Modelisation
-
-            </h3>
-
-            <p>
-
-                Les enseignants-chercheurs et les étudiants présentent leurs
-                travaux de recherche, leurs projets innovants et les résultats
-                obtenus dans les différents départements.
-
-            </p>
-
-            <a href="#" class="btn-lire">
-
-                Retour
-
-            </a>
-
-        </div>
-
-    </article>
-
-
-
-    <article class="actualite-card">
-
-        <div class="actualite-image">
-
-            <img src="../static/images/visite.png" alt="Stages">
-
-            <span class="categorie">
-                Opportunités
-            </span>
-
-        </div>
-
-        <div class="actualite-contenu">
-
-            <span class="date">
-                <i class="fas fa-calendar"></i>
-                2026
-            </span>
-
-            <h3>
-
-                L'UFR STA a accueilli les éleves du lycée de yeumbeul
-
-            </h3>
-
-            <p>
-
-                L'UFR STA a accueilli les éleves du lycée de yeumbeul pour une viste au sein du campus.
-                Ce visite leurs a permi de decouvrir le BU, la salle information de l'ufr sta ....
-
-            </p>
-
-            <a href="#" class="btn-lire">
-
-                Retour
-
-            </a>
-
-        </div>
-
-    </article>
-
-
-
-    <article class="actualite-card">
-
-        <div class="actualite-image">
-
-            <img src="../static/images/partenariat.png" alt="Partenariat">
-
-            <span class="categorie">
-                Partenariat
-            </span>
-
-        </div>
-
-        <div class="actualite-contenu">
-
-            <span class="date">
-                <i class="fas fa-calendar"></i>
-                Février 2026
-            </span>
-
-            <h3>
-
-                Nouveaux partenariats académiques
-
-            </h3>
-
-            <p>
-
-                L'UFR STA renforce sa coopération avec plusieurs entreprises afin d'offrir davantage
-                d'opportunités aux étudiants de trouver du stage pour leur fin d'etude licence selon leurs sujets de projet .
-
-            </p>
-
-            <a href="#" class="btn-lire">
-
-                Retour
-
-            </a>
-
-        </div>
-
-    </article>
+    {% endfor %}
 
 </section>
-
+{% endblock %}
 </main>
-
-<footer class="footer">
-
-    <div class="footer-top">
-
-        <img src="../static/images/Logo_STA.png" alt="Logo STA" class="footer-logo">
-
-        <h2>UFR Sciences et Technologies Avancées</h2>
-
-        <p>
-            Excellence, innovation et recherche au service des sciences et des technologies.
-        </p>
-
-    </div>
-
-    <div class="footer-section">
-
-        <h3>Liens utiles</h3>
-
-        <ul>
-
-            <li>
-                <a href="https://uam.sn" target="_blank">
-                    ➜ Université Amadou Mahtar Mbow
-                </a>
-            </li>
-
-            <li>
-                <a href="https://www.directiondesbourses.sn/" target="_blank">
-                    ➜ Direction des Bourses
-                </a>
-            </li>
-
-            <li>
-                <a href="https://www.crousuam.sn/" target="_blank">
-                    ➜ CROUS UAM
-                </a>
-            </li>
-
-            <li>
-                <a href="https://mesrisenegal.sn/" target="_blank">
-                    ➜ Ministère de l'Enseignement supérieur
-                </a>
-            </li>
-
-        </ul>
-
-    </div>
-
-    <div class="footer-section">
-
-        <h3>Contact</h3>
-
-        <p>
-            <i class="fas fa-map-marker-alt"></i>
-            Université Amadou Mahtar Mbow, Diamniadio
-        </p>
-
-        <p>
-            <i class="fas fa-envelope"></i>
-            ufr-sta@uam.edu.sn
-        </p>
-
-    
-    </div>
-
-    <div class="socials">
-
-        <a href="#" aria-label="Facebook">
-            <i class="fab fa-facebook-f"></i>
-        </a>
-
-        <a href="#" aria-label="LinkedIn">
-            <i class="fab fa-linkedin-in"></i>
-        </a>
-
-        <a href="#" aria-label="YouTube">
-            <i class="fab fa-youtube"></i>
-        </a>
-
-        <a href="#" aria-label="Instagram">
-            <i class="fab fa-instagram"></i>
-        </a>
-
-    </div>
-
-    <div class="footer-bottom">
-
-        © 2026 UFR Sciences et Technologies Avancées - Tous droits réservés.
-
-    </div>
-
-</footer>
-
-<script src="../static/js/script.js"></script>
-
-</body>
-</html>
