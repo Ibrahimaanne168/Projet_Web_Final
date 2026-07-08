@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block title %}Contact | UFR STA{% endblock %}
+
+    <main>
+{% block content %}
+<section class="contact-hero">
+
+    <h1>Contactez-nous</h1>
+
+    <p>
+        Une question, une suggestion ou une demande d'information ?
+        Notre équipe est à votre écoute.
+    </p>
+
+</section>
+
+<section class="contact">
+
+    <div class="contact-info">
+
+        <div class="info-card">
+            <i class="fas fa-map-marker-alt"></i>
+
+            <div>
+                <h3>Adresse</h3>
+                <p>Université Amadou Mahtar Mbow</p>
+                <p>Diamniadio - Sénégal</p>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <i class="fas fa-envelope"></i>
+
+            <div>
+                <h3>Email</h3>
+                <p>ufr-sta@uam.edu.sn</p>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <i class="fas fa-clock"></i>
+
+            <div>
+                <h3>Horaires</h3>
+                <p>Lundi au Vendredi</p>
+                <p>08h00 - 17h00</p>
+            </div>
+        </div>
+
+    </div>
+
+    <form class="contact-form" method="POST">
+
+        <h2>Envoyer un message</h2>
+
+        <div class="double">
+
+            <input
+                type="text"
+                name="nom"
+                placeholder="Nom"
+                required>
+
+            <input
+                type="text"
+                name="prenom"
+                placeholder="Prénom"
+                required>
+
+        </div>
+
+        <input
+            type="email"
+            name="email"
+            placeholder="Adresse email"
+            required>
+
+        <input
+            type="text"
+            name="sujet"
+            placeholder="Sujet"
+            required>
+
+        <textarea
+            name="message"
+            rows="8"
+            placeholder="Votre message..."
+            required></textarea>
+
+        <button type="submit">
+
+            <i class="fas fa-paper-plane"></i>
+
+            Envoyer le message
+
+        </button>
+
+    </form>
+
+</section>
+{% endblock %}
+    </main>

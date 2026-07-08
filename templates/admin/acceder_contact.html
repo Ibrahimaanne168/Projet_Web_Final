@@ -1,0 +1,167 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Messages reçus{% endblock %}
+
+{% block content %}
+
+<section class="acces-actu">
+
+    <div class="titre-actu-acces">
+
+        <h1>
+
+            <i class="fas fa-envelope"></i>
+
+            Messages reçus
+
+        </h1>
+
+        <a href="{{ url_for('dashboard') }}" class="btn-retour">
+
+            <i class="fas fa-arrow-left"></i>
+
+            Dashboard
+
+        </a>
+
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+
+                <div class="flash {{ category }}">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="liste-actus">
+
+        {% for contact in contacts %}
+
+        <article class="carte-actu-acces">
+
+            <div class="contenu-actu-acces">
+
+                <h2>
+
+                    {{ contact.sujet_contact }}
+
+                </h2>
+
+                <p>
+
+                    <strong>{{ contact.prenom_contact }} {{ contact.nom_contact }}</strong>
+
+                </p>
+
+                <small>
+
+                    <i class="fas fa-envelope"></i>
+
+                    {{ contact.email_contact }}
+
+                </small>
+
+                <p>
+
+                    {{ contact.message_contact[:180] }}
+
+                    {% if contact.message_contact|length > 180 %}
+                        ...
+                    {% endif %}
+
+                </p>
+
+                <div class="actions">
+
+                    <a
+                        href="{{ url_for('acceder_contact', lire=contact.id_contact) }}"
+                        class="btn-modifier">
+
+                        <i class="fas fa-eye"></i>
+
+                        Lire
+
+                    </a>
+
+                    <a
+                        href="{{ url_for('acceder_contact', supprimer=contact.id_contact) }}"
+                        class="btn-supprimer"
+                        onclick="return confirm('Supprimer ce message ?')">
+
+                        <i class="fas fa-trash"></i>
+
+                        Supprimer
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </article>
+
+        {% else %}
+
+            <p>Aucun message reçu.</p>
+
+        {% endfor %}
+
+    </div>
+
+    {% if contact_selectionne %}
+
+    <hr>
+
+    <div class="acces-actu-form">
+
+        <h2>
+
+            <i class="fas fa-envelope-open"></i>
+
+            Lecture du message
+
+        </h2>
+
+        <p>
+
+            <strong>Nom :</strong>
+
+            {{ contact_selectionne.prenom_contact }}
+            {{ contact_selectionne.nom_contact }}
+
+        </p>
+
+        <p>
+
+            <strong>Email :</strong>
+
+            {{ contact_selectionne.email_contact }}
+
+        </p>
+
+        <p>
+
+            <strong>Sujet :</strong>
+
+            {{ contact_selectionne.sujet_contact }}
+
+        </p>
+
+        <textarea rows="12" readonly>
+
+{{ contact_selectionne.message_contact }}
+
+        </textarea>
+
+    </div>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}

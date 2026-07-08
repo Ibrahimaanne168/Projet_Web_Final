@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}UFR STA{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="icon" href="{{ url_for('static', filename='images/Logo_STA.png') }}">
+</head>
+<body>
+    <div class="uam">
+        <img src="{{ url_for('static', filename='images/logo_UAM.png') }}" alt="Logo UAM" class="logo_uam">
+        <div class="nom_uam">UNIVERSITE AMADOU <br> MAHTAR MBOW</div>
+
+        <a href="https://uam.sn" target="_blank">
+            <span>Site officiel</span>
+        </a>
+    </div>
+
+    <header>
+        <div class="logo-titre">
+            <img src="{{ url_for('static', filename='images/Logo_STA.png') }}" alt="Logo UFR STA" class="logo">
+            <h1>UFR <br> SCIENCES ET  TECHNOLOGIES <br> AVANCEES</h1>
+            <div class="menu-defilant">
+                &#9776;
+            </div>
+            <a href="{{ url_for('admin_login') }}" class="btn-login" aria-label="Admin login" title="Admin login">
+            <i class="fas fa-user-lock" aria-hidden="true"></i>
+        </a>
+        </div>
+
+        <nav>
+            <ul>
+            <li><a href="{{ url_for('index') }}">Accueil</a></li>
+            <li><a href="{{ url_for('actualites') }}">Actualités</a></li>
+            <li><a href="{{ url_for('activites') }}">Activités</a></li>
+            <li><a href="{{ url_for('departements') }}">Départements</a></li>
+            <li><a href="{{ url_for('enseignants') }}">Enseignants</a></li>
+            <li><a href="{{ url_for('formations') }}">Formations</a></li>
+            <li><a href="{{ url_for('galerie') }}">Galerie</a></li>
+            <li><a href="{{ url_for('contact') }}">Contact</a></li>
+            </ul>
+        </nav>
+
+
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="footer">
+
+    <div class="footer-top">
+
+        <img src="{{ url_for('static', filename='images/Logo_STA.png') }}" alt="Logo STA" class="footer-logo">
+
+        <h2>UFR Sciences et Technologies Avancées</h2>
+
+        <p>
+            Excellence, innovation et recherche au service des sciences et des technologies.
+        </p>
+
+    </div>
+
+    <div class="footer-section">
+
+        <h3>Liens utiles</h3>
+
+        <ul>
+            <li><a href="https://uam.sn" target="_blank">➜Université Amadou Mahtar Mbow</a></li>
+            <li><a href="https://www.bing.com/ck/a?!&&p=2dbeb84a68d98038bc6bf6595f5aa27991a50eb6daffc42e568f7b695ca087cfJmltdHM9MTc4MjE3MjgwMA&ptn=3&ver=2&hsh=4&fclid=1225f51b-5d41-671e-299a-e2355c8f6667&u=a1aHR0cHM6Ly93d3cuYmluZy5jb20vYWxpbmsvbGluaz91cmw9aHR0cHMlM2ElMmYlMmZkaXJlY3Rpb25kZXNib3Vyc2VzLnNuJTJmJnNvdXJjZT1zZXJwLWxvY2FsJmg9c1lVb3BoeUE0JTJmT3lZU3ZUVURXSEkyQTJQdVY1WSUyYmVIVjJGVUlOdkhHb2clM2QmcD1sd19tYWdzbWx0JmlnPTdFMkZGNDBBQkY3QTQwQ0M4MTQ4NjBGRUU0MDIxNzkzJnlwaWQ9WU44MTY4eDE3Nzg0NjU3OTEwNzQ2NDU2MDk3" target="_blank">➜ Direction des bourses</a></li>
+            <li><a href="https://www.crousuam.sn/" target="_blank">➜ Crous Diamniadio</a></li>
+            <li><a href="https://mesrisenegal.sn/" target="_blank">➜ Ministère de l'Enseignement supérieur, de la Recherche et de l'Innovation</a></li>
+        </ul>
+
+    </div>
+
+    <div class="footer-section">
+
+        <h3>Contact</h3>
+
+        <p><i class="fas fa-map-marker-alt"></i> Université Amadou Mahtar Mbow</p>
+        <p><i class="fas fa-envelope"></i> ufr-sta@uam.edu.sn</p>
+    </div>
+
+    <div class="socials">
+
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+
+    <div class="footer-bottom">
+        © 2026 UFR Sciences et Technologies Avancées
+    </div>
+
+</footer>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

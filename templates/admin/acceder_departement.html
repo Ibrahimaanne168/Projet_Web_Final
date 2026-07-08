@@ -1,0 +1,215 @@
+
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Gestion des départements{% endblock %}
+
+{% block content %}
+
+<section class="acces-actu">
+
+    <div class="titre-actu-acces">
+
+        <h1>
+
+            <i class="fas fa-building"></i>
+
+            Gestion des départements
+
+        </h1>
+
+        <a href="{{ url_for('dashboard') }}" class="btn-retour">
+
+            <i class="fas fa-arrow-left"></i>
+
+            Dashboard
+
+        </a>
+
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+
+                <div class="flash {{ category }}">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" class="acces-actu-form">
+
+        <h2>
+
+            {% if departement %}
+                Modifier un département
+            {% else %}
+                Ajouter un département
+            {% endif %}
+
+        </h2>
+
+        <input
+            type="hidden"
+            name="id"
+            value="{{ departement.id if departement else '' }}">
+
+        <input
+            type="text"
+            name="nom"
+            placeholder="Nom du département"
+            value="{{ departement.nom if departement else '' }}"
+            required>
+
+        <textarea
+            name="description"
+            rows="8"
+            placeholder="Description du département"
+            required>{{ departement.description if departement else '' }}</textarea>
+
+        <input
+            type="text"
+            name="image"
+            placeholder="Nom de l'image"
+            value="{{ departement.image if departement else '' }}"
+            required>
+
+        <input
+            type="text"
+            name="chef_nom"
+            placeholder="Nom du chef de département"
+            value="{{ departement.chef_nom if departement else '' }}"
+            required>
+
+        <input
+            type="email"
+            name="chef_email"
+            placeholder="Adresse email"
+            value="{{ departement.chef_email if departement else '' }}">
+
+        <input
+            type="text"
+            name="chef_photo"
+            placeholder="Nom de la photo du chef"
+            value="{{ departement.chef_photo if departement else '' }}"
+            required>
+
+        <input
+            type="number"
+            name="ordre"
+            placeholder="Ordre d'affichage"
+            value="{{ departement.ordre if departement else '1' }}">
+
+        <button type="submit">
+
+            <i class="fas fa-save"></i>
+
+            {% if departement %}
+                Enregistrer les modifications
+            {% else %}
+                Ajouter le département
+            {% endif %}
+
+        </button>
+
+    </form>
+
+    <div class="liste-actus">
+
+        {% for departement in departements %}
+
+        <article class="carte-actu-acces">
+
+            <img
+                src="{{ url_for('static', filename='images/' ~ departement.image) }}"
+                alt="{{ departement.nom }}">
+
+            <div class="contenu-actu-acces">
+
+                <h2>
+
+                    {{ departement.nom }}
+
+                </h2>
+
+                <p>
+
+                    {{ departement.description[:180] }}
+                    {% if departement.description|length > 180 %}...{% endif %}
+
+                </p>
+
+                <p>
+
+                    <strong>Chef :</strong>
+
+                    {{ departement.chef_nom }}
+
+                </p>
+
+                {% if departement.chef_email %}
+
+                <p>
+
+                    <strong>Email :</strong>
+
+                    {{ departement.chef_email }}
+
+                </p>
+
+                {% endif %}
+
+                <p>
+
+                    <strong>Ordre d'affichage :</strong>
+
+                    {{ departement.ordre }}
+
+                </p>
+
+                <img class="acceder_departement_cd"
+                    src="{{ url_for('static', filename='images/' ~ departement.chef_photo) }}"
+                    alt="{{ departement.chef_nom }}">
+
+                <div class="actions">
+
+                    <a
+                        href="{{ url_for('acceder_departement', modifier=departement.id) }}"
+                        class="btn-modifier">
+
+                        <i class="fas fa-pen"></i>
+
+                        Modifier
+
+                    </a>
+
+                    <a
+                        href="{{ url_for('acceder_departement', supprimer=departement.id) }}"
+                        class="btn-supprimer"
+                        onclick="return confirm('Supprimer ce département ?')">
+
+                        <i class="fas fa-trash"></i>
+
+                        Supprimer
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </article>
+
+        {% else %}
+
+        <p>Aucun département enregistré.</p>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}

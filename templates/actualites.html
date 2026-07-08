@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block title %}Actualités | UFR STA{% endblock %}
+
+
+<main>
+    {% block content %}
+
+<section class="hero-actualites">
+
+    <div class="hero-contenu">
+
+        <h2>
+            Actualités
+        </h2>
+
+        <p>
+
+            Suivez toutes les informations officielles, les événements,
+            les journées scientifiques, les séminaires et les annonces
+            destinées aux étudiants de l'UFR Sciences et Technologies
+            Avancées.
+
+        </p>
+
+        <a href="#liste-actualites" class="btn-hero">
+
+            Découvrir les actualités
+
+        </a>
+
+    </div>
+
+
+</section>
+
+<section class="resume-actualites">
+
+    <div class="resume-card">
+
+        <i class="fas fa-bullhorn"></i>
+
+        <h3>Informations</h3>
+
+        <p>
+            Notes officielles, communiqués et annonces administratives.
+        </p>
+
+    </div>
+
+    <div class="resume-card">
+
+        <i class="fas fa-calendar-days"></i>
+
+        <h3>Évènements</h3>
+
+        <p>
+            Journées scientifiques, conférences et séminaires.
+        </p>
+
+    </div>
+
+    <div class="resume-card">
+
+        <i class="fas fa-user-graduate"></i>
+
+        <h3>Étudiants</h3>
+
+        <p>
+            Toutes les informations importantes pour les étudiants.
+        </p>
+
+    </div>
+
+    <div class="resume-card">
+
+        <i class="fas fa-flask"></i>
+
+        <h3>Recherche</h3>
+
+        <p>
+            Innovation, partenariats et activités scientifiques.
+        </p>
+
+    </div>
+
+</section>
+
+<section class="titre-page" id="liste-actualites">
+
+    <h2>
+        Les dernières actualités
+    </h2>
+
+    <p>
+
+        Retrouvez toutes les informations importantes concernant
+        l'UFR Sciences et Technologies Avancées.
+
+    </p>
+
+</section>
+
+<section class="actualites-grid">
+
+    {% for actualite in actualites %}
+
+    <article class="actualite-card">
+
+        <div class="actualite-image">
+
+            <img src="{{ url_for('static', filename='images/' ~ actualite.image_actu) }}" alt="{{ actualite.titre_actu }}">
+
+            <span class="categorie">
+                {{ actualite.categorie_actu }}
+            </span>
+
+        </div>
+
+        <div class="actualite-contenu">
+
+            <span class="date">
+                <i class="fas fa-calendar"></i>
+                {{ actualite.date_publication }}
+            </span>
+
+            <h3>
+                {{ actualite.titre_actu }}
+            </h3>
+
+            <p>
+                {{ actualite.contenu_actu}}
+            </p>
+
+            <a href="{{ url_for('galerie') }}" class="btn-lire">
+
+                Voir Galerie
+
+            </a>
+
+        </div>
+
+    </article>
+
+    {% endfor %}
+
+</section>
+{% endblock %}
+</main>

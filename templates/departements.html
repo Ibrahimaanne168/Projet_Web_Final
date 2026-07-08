@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Départements | UFR STA{% endblock %}
+
+
+    <main>
+        {% block content %}
+        <section class="departements-section">
+
+            <div class="titre-directeur">
+                <i class="fas fa-university"></i>
+
+                <div class="titre-directeur-text">
+                    <h2>Nos Départements</h2>
+                    <div class="trait"></div>
+                </div>
+            </div>
+
+            <p class="section-description">
+                <strong>L'UFR STA</strong> place le curseur sur <strong>des formations innovantes dans le domaine des STEMS</strong>, conformément aux recommandations de <strong>la Concertation Nationale sur l'Avenir de l'Enseignement Supérieur (CNAES)</strong>. Elle développe un modèle pédagogique intégré qui <strong>aligne « Formation professionnelle » et « Formation par la Recherche ».</strong><br>
+                <strong>L'UFR Sciences et Technologies Avancées (STA) est composée de deux départements.</strong>
+            </p>
+
+            <div class="departements-grid">
+
+    {% for departement in departements %}
+
+    <article class="departement-card">
+        <div class="departement-content">
+
+            <div class="departement-image-container">
+                <img src="{{ url_for('static', filename='images/' ~ departement.image) }}"
+                    alt="{{ departement.nom }}"
+                    class="departement-image">
+            </div>
+
+            <div class="departement-text">
+
+                <h3>{{ departement.nom }}</h3>
+
+                <p>
+                    {{ departement.description|safe }}
+                </p>
+
+                <h4>Filières proposées</h4>
+
+                <div class="filieres">
+
+                    {% for filiere in departement.filieres %}
+                        <span>{{ filiere.nom }}</span>
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+            <div class="responsable-filiere">
+
+                <img src="{{ url_for('static', filename='images/' ~ departement.chef_photo) }}" 
+                alt="{{ departement.chef_nom }}">
+
+                <div class="responsable-details">
+
+                    <span>Chef de département</span>
+
+                    <h5>{{ departement.chef_nom }}</h5>
+
+                    <p>
+                        <i class="fas fa-envelope"></i>
+                        {{ departement.chef_email }}
+                    </p>
+
+                </div>
+
+            </div>
+
+            <a href="{{ url_for('formations') }}" class="btn-formation">
+                En savoir plus
+            </a>
+
+        </div>
+    </article>
+
+    {% endfor %}
+
+</div>
+
+        </section>
+        {% endblock %}
+    </main>

@@ -1,0 +1,179 @@
+
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Gestion des actualités{% endblock %}
+
+{% block content %}
+
+<section class="acces-actu">
+
+    <div class="titre-actu-acces">
+
+        <h1>
+
+            <i class="fas fa-newspaper"></i>
+
+            Gestion des actualités
+
+        </h1>
+
+        <a href="{{ url_for('dashboard') }}" class="btn-retour">
+
+            <i class="fas fa-arrow-left"></i>
+
+            Dashboard
+
+        </a>
+
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash {{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" class="acces-actu-form">
+
+        <h2>
+
+            {% if actualite %}
+                Modifier une actualité
+            {% else %}
+                Ajouter une actualité
+            {% endif %}
+
+        </h2>
+
+        <input
+            type="hidden"
+            name="id_actu"
+            value="{{ actualite.id_actu if actualite else '' }}">
+
+        <input
+            type="text"
+            name="titre_actu"
+            placeholder="Titre de l'actualité"
+            value="{{ actualite.titre_actu if actualite else '' }}"
+            required>
+
+        <textarea
+            name="contenu_actu"
+            rows="8"
+            placeholder="Contenu de l'actualité"
+            required>{{ actualite.contenu_actu if actualite else '' }}</textarea>
+
+        <input
+            type="text"
+            name="categorie_actu"
+            placeholder="Catégorie"
+            value="{{ actualite.categorie_actu if actualite else '' }}"
+            required>
+
+        <input
+            type="text"
+            name="image_actu"
+            placeholder="Nom de l'image"
+            value="{{ actualite.image_actu if actualite else '' }}">
+
+        <input
+            type="date"
+            name="date_publication"
+            value="{{ actualite.date_publication if actualite else '' }}">
+
+        <button type="submit">
+
+            <i class="fas fa-save"></i>
+
+            {% if actualite %}
+                Enregistrer les modifications
+            {% else %}
+                Ajouter l'actualité
+            {% endif %}
+
+        </button>
+
+    </form>
+
+    <div class="liste-actus">
+
+        {% for actu in actualites %}
+
+        <article class="carte-actu-acces">
+
+            <img
+                src="{{ url_for('static', filename='images/' ~ actu.image_actu) }}"
+                alt="{{ actu.titre_actu }}">
+
+            <div class="contenu-actu-acces">
+
+                <span class="badge">
+
+                    {{ actu.categorie_actu }}
+
+                </span>
+
+                <h2>
+
+                    {{ actu.titre_actu }}
+
+                </h2>
+
+                <p>
+
+                    {{ actu.contenu_actu[:180] }}{% if actu.contenu_actu|length > 180 %}...{% endif %}
+
+                </p>
+
+                <small>
+
+                    <i class="fas fa-calendar"></i>
+
+                    {{ actu.date_publication }}
+
+                </small>
+
+                <div class="actions">
+
+                    <a
+                        href="{{ url_for('acceder_actu', modifier=actu.id_actu) }}"
+                        class="btn-modifier">
+
+                        <i class="fas fa-pen"></i>
+
+                        Modifier
+
+                    </a>
+
+                    <a
+                        href="{{ url_for('acceder_actu', supprimer=actu.id_actu) }}"
+                        class="btn-supprimer"
+                        onclick="return confirm('Supprimer cette actualité ?')">
+
+                        <i class="fas fa-trash"></i>
+
+                        Supprimer
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </article>
+
+        {% else %}
+
+        <p>Aucune actualité enregistrée.</p>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}

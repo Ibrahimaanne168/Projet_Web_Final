@@ -1,0 +1,159 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Gestion des activités{% endblock %}
+
+{% block content %}
+
+<section class="acces-actu">
+
+    <div class="titre-actu-acces">
+
+        <h1>
+            <i class="fas fa-calendar-alt"></i>
+            Gestion des activités
+        </h1>
+
+        <a href="{{ url_for('dashboard') }}" class="btn-retour">
+            <i class="fas fa-arrow-left"></i>
+            Dashboard
+        </a>
+
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash {{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" class="acces-actu-form">
+
+        <h2>
+
+            {% if activite %}
+                Modifier une activité
+            {% else %}
+                Ajouter une activité
+            {% endif %}
+
+        </h2>
+
+        <input
+            type="hidden"
+            name="id_activite"
+            value="{{ activite.id_activite if activite else '' }}">
+
+        <input
+            type="text"
+            name="titre_activite"
+            placeholder="Titre de l'activité"
+            value="{{ activite.titre_activite if activite else '' }}"
+            required>
+
+        <textarea
+            name="description_activite"
+            rows="8"
+            placeholder="Description"
+            required>{{ activite.description_activite if activite else '' }}</textarea>
+
+        <input
+            type="text"
+            name="image_activite"
+            placeholder="Nom de l'image"
+            value="{{ activite.image_activite if activite else '' }}">
+
+        <input
+            type="date"
+            name="date_activite"
+            value="{{ activite.date_activite if activite else '' }}">
+
+        <button type="submit">
+
+            <i class="fas fa-save"></i>
+
+            {% if activite %}
+                Enregistrer les modifications
+            {% else %}
+                Ajouter l'activité
+            {% endif %}
+
+        </button>
+
+    </form>
+
+    <div class="liste-actus">
+
+        {% for activite in activites %}
+
+        <article class="carte-actu-acces">
+
+            <img
+                src="{{ url_for('static', filename='images/' ~ activite.image_activite) }}"
+                alt="{{ activite.titre_activite }}">
+
+            <div class="contenu-actu-acces">
+
+                <h2>
+
+                    {{ activite.titre_activite }}
+
+                </h2>
+
+                <p>
+
+                    {{ activite.description_activite[:180] }}{% if activite.description_activite|length > 180 %}...{% endif %}
+
+                </p>
+
+                <small>
+
+                    <i class="fas fa-calendar"></i>
+
+                    {{ activite.date_activite }}
+
+                </small>
+
+                <div class="actions">
+
+                    <a
+                        href="{{ url_for('acceder_activite', modifier=activite.id_activite) }}"
+                        class="btn-modifier">
+
+                        <i class="fas fa-pen"></i>
+
+                        Modifier
+
+                    </a>
+
+                    <a
+                        href="{{ url_for('acceder_activite', supprimer=activite.id_activite) }}"
+                        class="btn-supprimer"
+                        onclick="return confirm('Supprimer cette activité ?')">
+
+                        <i class="fas fa-trash"></i>
+
+                        Supprimer
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </article>
+
+        {% else %}
+
+        <p>Aucune activité enregistrée.</p>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}

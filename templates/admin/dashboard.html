@@ -1,0 +1,86 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Dashboard Admin{% endblock %}
+
+{% block content %}
+
+<section class="dashboard">
+
+<h1>📊 Dashboard Administrateur</h1>
+
+<p class="welcome">
+    Bienvenue <strong>{{ session['admin'] }}</strong>
+</p>
+
+<!-- ================= CONTENT ================= -->
+<h2 class="section-title-dash">📰 Modifications</h2>
+
+<div class="dashboard-grid">
+
+    <a href="{{ url_for('acceder_actu') }}" class="card">
+        <span class="icon">📰</span>
+        <h3>Gérer Actualités</h3>
+        <p>Ajouter / Modifier / Supprimer</p>
+    </a>
+
+    <a href="{{ url_for('acceder_activite') }}" class="card">
+        <span class="icon">📚</span>
+        <h3>Gérer Activités</h3>
+        <p>Ajouter / Modifier / Supprimer</p>
+    </a>
+
+
+
+    <a href="{{ url_for('acceder_enseignant') }}" class="card">
+        <span class="icon">👨‍🏫</span>
+        <h3>Gérer Enseignants</h3>
+            <p>Ajouter / Modifier / Supprimer</p>
+        </a>
+
+
+    <a href="{{ url_for('acceder_galerie') }}" class="card">
+        <span class="icon">🖼️</span>
+        <h3>Gérer Galerie</h3>
+        <p>Ajouter / Modifier / Supprimer</p>
+    </a>
+
+    <a href="{{ url_for('acceder_departement') }}" class="card">
+        <span class="icon">🏛️</span>
+        <h3>Gérer Départements</h3>
+        <p>Ajouter / Modifier / Supprimer</p>
+    </a>
+
+    <a href="{{ url_for('acceder_formation') }}" class="card">
+        <span class="icon">🎓</span>
+        <h3>Gérer Formations</h3>
+        <p>Ajouter / Modifier / Supprimer</p>
+    </a>
+
+    <a href="{{ url_for('acceder_contact') }}" class="card">
+        <span class="icon">📄</span>
+        <h3>Gérer Messages</h3>
+        <p>Lire les Messages recus</p>
+    </a>
+</div>
+
+<h2 class="section-title-dash">⚙️ Système</h2>
+
+<div class="dashboard-grid">
+
+    <a href="{{ url_for('ajouter_admin') }}" class="card">
+        <span class="icon">🧑‍💻</span>
+        <h3>Gérer Admins</h3>
+        <p>Ajouter / Modifier / Supprimer</p>
+    </a>
+
+    <a href="{{ url_for('logout') }}" class="card logout">
+        <span class="icon">🚪</span>
+        <h3>Déconnexion</h3>
+        <p>Quitter l’espace admin</p>
+    </a>
+
+</div>
+
+</section>
+
+{% endblock %}

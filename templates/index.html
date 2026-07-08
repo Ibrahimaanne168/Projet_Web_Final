@@ -1,0 +1,263 @@
+{% extends "base.html" %}
+
+{% block title %}Accueil | UFR STA{% endblock %}
+
+<main>
+    {% block content %}
+
+    <section class="heroes">
+        <section class="slider">
+            <div class="slide active">
+                <img src="../static/images/im1.png" alt="Photo institutionnelle 1 de l'UFR STA">
+            </div>
+            <div class="slide">
+                <img src="../static/images/im2.png" alt="Photo institutionnelle 2 de l'UFR STA">
+            </div>
+            <div class="slide">
+                <img src="../static/images/im3.png" alt="Photo institutionnelle 3 de l'UFR STA">
+            </div>
+            <div class="slide">
+                <img src="../static/images/im4.png" alt="Photo institutionnelle 4 de l'UFR STA">
+            </div>
+            <div class="slide">
+                <img src="../static/images/im5.png" alt="Photo institutionnelle 5 de l'UFR STA">
+            </div>
+
+            <button type="button" class="prev">&#10094;</button>
+            <button type="button" class="next">&#10095;</button>
+
+            <div class="dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </section>
+
+        <section class="presentations">
+            <div class="presentation-header">
+                <i class="fas fa-file-alt" id="icon2"></i>
+                <div class="titre_presentation">
+                    <h2>Présentation</h2>
+                    <div class="trait"></div>
+                </div>
+            </div>
+
+            <p>
+                <strong>L’UFR Sciences et Technologies Avancées (STA) </strong>est une composante
+                de <strong>l’Université Amadou Mahtar Mbow</strong> dédiée à l’enseignement, à la
+                recherche et à l’innovation dans les domaines des sciences, de
+                l’ingénierie, de l’informatique et des nouvelles technologies.
+            </p>
+
+            <a href="{{ url_for('departements') }}" class="btn-presentation">
+                En savoir plus
+            </a>
+        </section>
+    </section>
+
+        <section class="mot-directeur">
+
+    <div class="titre-directeur">
+        <i class="fa-solid fa-user-group" id="icon"></i>
+
+        <div>
+            <h2>Mot du Directeur</h2>
+            <div class="trait"></div>
+        </div>
+    </div>
+
+    <div class="directeur-card">
+        <div class="directeur-image">
+            <img src="../static/images/prof5.png" alt="Photo du Directeur Dr. Alioune COULIBALY">
+        </div>
+        <div class="directeur-texte">
+
+            <i class="fa-solid fa-quote-left quote"></i>
+
+            <p>
+                Nous nous engageons à former des talents compétents,
+                innovants et responsables pour répondre aux défis
+                scientifiques et technologiques du monde de demain.
+            </p>
+
+            <h3>Dr. Alioune COULIBALY</h3>
+
+            <span>Directeur de l'UFR STA</span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="logo-section">
+
+    <div class="logo-card">
+
+        <img src="../static/images/logo_STA.png" alt="Logo STA" class="logo-sta">
+
+        <h2>UFR Sciences et Technologies Avancées</h2>
+
+        <p>
+            Excellence • Innovation • Recherche
+        </p>
+
+    </div>
+
+</section>
+<section class="chiffres-cles">
+
+    <div class="titre-chiffres">
+        <i class="fas fa-clipboard-list"></i>
+        <div>
+            <h2>Nos chiffres clés</h2>
+            <div class="trait-chiffres"></div>
+        </div>
+    </div>
+
+    <div class="stats-container">
+
+        <div class="stat-card">
+            <i class="fas fa-users"></i>
+            <h3>500+</h3>
+            <p>Étudiants</p>
+        </div>
+
+        <div class="stat-card">
+            <i class="fas fa-graduation-cap"></i>
+            <h3>2</h3>
+            <p>Départements</p>
+        </div>
+
+        <div class="stat-card">
+            <i class="fas fa-user-tie"></i>
+            <h3>30+</h3>
+            <p>Enseignants</p>
+        </div>
+
+        <div class="stat-card">
+            <i class="fas fa-handshake"></i>
+            <h3>15+</h3>
+            <p>Partenaires</p>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="actualites">
+
+    <div class="actualites-header">
+        <div class="titre-actualites">
+            <div class="titre-actualites-left">
+                <i class="fas fa-newspaper"></i>
+                <div>
+                    <h2>Dernières actualités</h2>
+                    <div class="trait-actualites"></div>
+                </div>
+            </div>
+
+            <a href="{{ url_for('actualites') }}" class="voir-tout">
+            Voir tout <i class="fas fa-chevron-right"></i>
+        </a>
+        </div>
+
+    </div>
+
+    <div class="actus-grid">
+
+        <article class="actu-card">
+            <img src="../static/images/conf.png" alt="Conférence">
+
+            <div class="actu-content">
+                <span class="date">
+                    <i class="far fa-calendar-alt"></i>
+                    Mai 2025
+                </span>
+
+                <h3>Grande conférence à l’UFR STA</h3>
+
+                <p>
+                    Pr Abdou SENE magnifie les mathématiques comme levier de développement communautaire.
+                </p>
+            </div>
+        </article>
+
+        <article class="actu-card">
+            <img src="../static/images/lenovo.png" alt="lenovo">
+
+            <div class="actu-content">
+                <span class="date">
+                    <i class="far fa-calendar-alt"></i>
+                    Juin 2026
+                </span>
+
+                <h3>Distribution des ordinateurs</h3>
+
+                <p>
+                    Tous les étudiants ont récupéré leurs machines afin de poursuivre les cours en ligne.
+                </p>
+            </div>
+        </article>
+
+        <article class="actu-card">
+            <img src="../static/images/journee.jpg" alt="Journée de l'Excellence de la STA">
+
+            <div class="actu-content">
+                <span class="date">
+                    <i class="far fa-calendar-alt"></i>
+                    Mai 2026
+                </span>
+
+                <h3>Journée de l'Excellence de la STA</h3>
+
+                <p>
+                    Présentation des projets innovants des étudiants et remise de récompenses aux majors de chaque filière et promotion.
+                </p>
+            </div>
+        </article>
+
+        <article class="actu-card">
+            <img src="../static/images/amphi.png" alt="Amphithéâtre de Rentrée">
+
+            <div class="actu-content">
+                <span class="date">
+                    <i class="far fa-calendar-alt"></i>
+                    Novembre 2025
+                </span>
+
+                <h3>Amphithéâtre de Rentrée</h3>
+
+                <p>
+                    Nouvelle année académique, il s'agit de la 3ème promotion de la STA.
+                </p>
+            </div>
+        </article>
+        <article class="actu-card">
+            <img src="../static/images/service.jpg" alt="Service">
+
+            <div class="actu-content">
+                <span class="date">
+                    <i class="far fa-calendar-alt"></i>
+                    Juin 2025
+                </span>
+
+                <h3>Service à la Communauté</h3>
+
+                <p>
+                    Visite Pédagogique des élèves du Lycée Yeumbeul.
+                </p>
+            </div>
+        </article>
+
+
+
+    </div>
+
+</section>
+
+{% endblock %}
+    </main>

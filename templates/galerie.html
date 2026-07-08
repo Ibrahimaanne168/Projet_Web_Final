@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block title %}Galerie | UFR STA{% endblock %}
+
+
+<main>
+    {% block content %}
+
+<section class="hero-galerie">
+
+    <div class="hero-contenu">
+
+        <span class="hero-badge">
+
+            <i class="fas fa-images"></i>
+
+            Galerie Photos
+
+        </span>
+
+        <h2>
+
+            Revivez les meilleurs moments de la vie de l'UFR STA
+
+        </h2>
+
+        <p>
+
+            Découvrez en images les activités académiques, les compétitions,
+            les journées d'excellence, les projets innovants, les sorties
+            pédagogiques ainsi que les événements qui rythment la vie des
+            étudiants de l'UFR Sciences et Technologies Avancées.
+
+        </p>
+
+    </div>
+
+    <div class="hero-image">
+
+        <img src="../static/images/pho.png" alt="Galerie">
+
+    </div>
+
+</section>
+
+<section class="presentation-galerie">
+
+    <h2>
+
+        Nos Albums Photos
+
+    </h2>
+
+    <p>
+
+        Chaque album rassemble les meilleurs souvenirs d'un événement organisé
+        par l'UFR STA. Cliquez sur une photo pour l'afficher en grand ou
+        utilisez le bouton <strong>Voir l'événement</strong> afin d'accéder
+        directement à la description complète de cette activité.
+
+    </p>
+
+</section>
+
+{% for album in albums %}
+
+<section class="album">
+
+    <div class="album-header">
+
+        <div>
+
+            <span class="album-date">
+
+                <i class="fas fa-calendar-alt"></i>
+
+                {{ album.date_album }}
+
+            </span>
+
+            <h2>{{ album.titre_album }}</h2>
+
+            <p>{{ album.description_album }}</p>
+
+        </div>
+
+        <a href="{{ url_for('activites') }}#{{ album.lien_activite }}" class="btn-evenement">
+
+            Voir l'événement
+
+        </a>
+
+    </div>
+
+    <div class="album-grid">
+
+        {% for photo in album.photos %}
+
+        <img src="{{ url_for('static', filename='images/' ~ photo.image_album) }}" alt="{{ photo.description }}" class="album-photo">
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endfor %}
+
+    {% endblock %}
+
+</main>
+
+

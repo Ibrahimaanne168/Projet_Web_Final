@@ -1,0 +1,272 @@
+{% extends "base.html" %}
+
+{% block title %}Formations | UFR STA{% endblock %}
+
+
+    <main>
+        {% block content %}
+
+    <section class="banner">
+        <div class="banner-content">
+            <h1>Sciences et Technologies Appliquées (STA)</h1>
+            <p>
+                Découvrez les différentes formations proposées par l'UFR ainsi que
+                les filières qui correspondent à votre projet professionnel.
+            </p>
+        </div>
+    </section>
+
+    <section class="presentation">
+        <h2>Présentation des formations</h2>
+
+        <p>
+            Le parcours STA offre une formation scientifique solide permettant
+            d'acquérir des compétences en mathématiques, informatique,
+            physique et sciences de la mer.
+        </p>
+    </section>
+
+    <section class="why">
+        <h2>Pourquoi choisir la STA ?</h2>
+
+        <div class="cards why-cards">
+            <article class="card">
+                <span class="icon">🎓</span>
+                <h3>Formation de qualité</h3>
+                <p>Des enseignements assurés par des enseignants-chercheurs qualifiés.</p>
+            </article>
+
+            <article class="card">
+                <span class="icon">💼</span>
+                <h3>Insertion professionnelle</h3>
+                <p>Des formations adaptées aux besoins du marché de l'emploi.</p>
+            </article>
+
+            <article class="card">
+                <span class="icon">🔬</span>
+                <h3>Recherche</h3>
+                <p>Une ouverture vers les laboratoires et la recherche scientifique.</p>
+            </article>
+        </div>
+    </section>
+
+
+<section class="departement">
+
+    {% for departement in departements %}
+
+    <h2>{{ departement.nom }}</h2>
+
+    {% for filiere in departement.filieres %}
+
+    <article class="formation">
+
+        <div class="formation-info">
+
+            <div class="formation-image">
+                <img src="{{ url_for('static', filename='images/' ~ filiere.image) }}" alt="{{ filiere.nom }}">
+            </div>
+
+            <div class="formation-text">
+
+                <h3>{{ filiere.nom }}</h3>
+
+                <p>{{ filiere.description }}</p>
+
+            </div>
+
+        </div>
+
+        {% for maquette in filiere.maquettes %}
+
+        <div class="maquette">
+
+            <h3>
+                Maquette du programme {{ filiere.nom }}
+                SEMESTRE {{ maquette.semestre }}
+            </h3>
+
+            <img src="{{ url_for('static', filename='images/' ~ maquette.image) }}"
+                    alt="{{ maquette.semestre }}" class="maquette-image">
+
+        </div>
+
+        {% endfor %}
+
+        {% for semestre in filiere.semestres %}
+
+        <div class="semestre">
+
+            <h3>Semestre {{ semestre.numero }}</h3>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>UE</th>
+                        <th>EC</th>
+                        <th>Crédits</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% for ue in semestre.ues %}
+
+                    <tr>
+
+                        <td>{{ ue.ue }}</td>
+
+                        <td>{{ ue.ec|safe }}</td>
+
+                        <td>{{ ue.credits }}</td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% endfor %}
+
+    </article>
+
+    {% if filiere.texte_specialisation %}
+
+    <h4>
+
+        {{ filiere.texte_specialisation|safe }}
+
+    </h4>
+
+    {% endif %}
+
+    {% endfor %}
+
+    {%endfor%}
+
+</section>
+
+
+    <section class="debouches">
+
+    <h2>Débouchés professionnels</h2>
+
+    <div class="cards">
+
+        <article class="card">
+            <span class="icon">📐</span>
+            <h3>Mathématiques et Modélisation</h3>
+            <p>
+                Recherche, enseignement, finance, actuariat, modélisation, optimisation, statistiques et aide à la décision.
+            </p>
+        </article>
+
+        <article class="card">
+            <span class="icon">⚛️</span>
+            <h3>Physique et Applications</h3>
+            <p>
+                Recherche et développement, énergie, matériaux, industrie, eau, spatial, instrumentation et ingénierie.
+            </p>
+        </article>
+
+        <article class="card">
+            <span class="icon">💻</span>
+            <h3>Informatique Appliquée</h3>
+            <p>
+                Développement logiciel, intelligence artificielle, cybersécurité, réseaux, cloud, IoT, data science et administration systèmes.
+            </p>
+        </article>
+
+        <article class="card">
+            <span class="icon">🌊</span>
+            <h3>Sciences de la Mer et du Littoral</h3>
+            <p>
+                Environnement marin, aquaculture, pêche, génie maritime, gestion du littoral, ONG et organismes publics.
+            </p>
+        </article>
+
+        <article class="card">
+            <span class="icon">📊</span>
+            <h3>Mathématiques et Informatique Appliquées aux Sciences Sociales</h3>
+            <p>
+                Analyse de données, économie, finance, statistique, aide à la décision, administrations, banques et cabinets d'études.
+            </p>
+        </article>
+
+    </div>
+
+</section>
+
+    <section class="prerequis">
+
+        <h2>Prérequis</h2>
+
+        <ul>
+
+            <li> <strong>Mathématiques, Physique et Informatique (MPI) :</strong>   S1, S1A, S2, S2A, S3 et S4 </li>
+
+            <li> <strong>Sciences de la Mer et du Littoral (SML) :</strong> S1, S1A, S2, S2A, S3 et S4 </li>
+
+            <li> <strong>Mathématiques Appliquées aux Sciences Sociales (MASS) :</strong> S1, S1A, S2, S2A, S3, S4 et STEG</li>
+
+        </ul>
+
+    </section>
+
+    <section class="prerequis">
+
+        <h2>Les Potentielles Formations en Master</h2>
+
+        <p>Le cycle de Master, qui privilégie le modèle de Master inter-universitaire, sera ouvert avec des filières
+            innovantes (Master professionnel et/ou professionnalisant et Master Recherche).</p>
+
+        <ul>
+
+            <li> <strong>• Analyse numérique et modélisation ;</strong></li>
+            <li> <strong>• Big data, Internet des Objets et Intelligence artificielle ;</strong></li>
+            <li> <strong>• Cyber Security ;</strong></li>
+            <li> <strong>• Sciences et Technologies spatiales ;</strong></li>
+            <li> <strong>• Génie côtier ;</strong></li>
+            <li> <strong>• Génie Côtier, Génie maritime et portuaire ;</strong></li>
+            <li> <strong>• Technologie marine ;</strong></li>
+            <li> <strong>• Méthodes de réalisations des ouvrages marines ;</strong></li>
+            <li> <strong>• Géophysique marine et explorations ;</strong></li>
+            <li> <strong>• Modélisation des Océans et du Climat ;</strong></li>
+            <li> <strong>• Economie Bleue ;</strong></li>
+            <li> <strong>• Transition énergétique et développement durable ;</strong></li>
+            <li> <strong>• Robotique ;</strong></li>
+            <li> <strong>• Nanotechnologie – Nanoscience ;</strong></li>
+            <li> <strong>• Physique Nucléaire et Applications ;</strong></li>
+            <li> <strong>• Physique des Matériaux et des fluides ;</strong></li>
+            <li> <strong>• Génétique moléculaire ;</strong></li>
+            <li> <strong>• Bio-informatique ;</strong></li>
+            <li> <strong>• Ecologie halieutique ;</strong></li>
+            <li><strong>Etc.</strong></li>
+
+            </ul>
+
+    </section>
+
+
+
+    <section class="why-end">
+
+        <h2>Pourquoi choisir STA ?</h2>
+
+        <p>
+            Une formation scientifique complète ouvrant la voie aux études
+            supérieures et à de nombreux métiers scientifiques.
+        </p>
+
+    </section>
+
+
+    {% endblock %}
+</main>

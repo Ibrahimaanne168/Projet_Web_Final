@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+{% block title %}Activités | UFR STA{% endblock %}
+
+
+<main>
+    {% block content %}
+
+<section class="hero-activites">
+
+    <div class="hero-activites-contenu">
+
+        <h2>
+            Les activités organisée par l'UFR
+            Sciences et Technologies Avancées
+        </h2>
+
+        <p>
+            L'UFR STA organise tout au long de l'année des compétitions,
+            journées scientifiques, conférences, visites pédagogiques
+            et présentations de projets afin de développer les compétences
+            académiques, scientifiques et professionnelles des étudiants.
+        </p>
+
+        <a href="#activites" class="btn-hero">
+            Découvrir les activités
+        </a>
+
+        </div>
+
+</section>
+
+<section class="resume-activites">
+
+    <div class="resume-card">
+
+        <i class="fas fa-award"></i>
+
+        <h3>Excellence</h3>
+
+        <p>
+            Valorisation des meilleurs étudiants et des projets innovants.
+        </p>
+
+    </div>
+
+    <div class="resume-card">
+
+        <i class="fas fa-users"></i>
+
+        <h3>Collaboration</h3>
+
+        <p>
+            Des activités favorisant le travail d'équipe et le partage
+            d'expériences entre les départements.
+        </p>
+
+    </div>
+
+    <div class="resume-card">
+
+        <i class="fas fa-lightbulb"></i>
+
+        <h3>Innovation</h3>
+
+        <p>
+            Présentation des réalisations scientifiques et technologiques
+            des étudiants.
+        </p>
+
+    </div>
+
+</section>
+
+<section class="titre-page" id="activites">
+
+    <h2>Les grandes activités de l'UFR STA</h2>
+
+    <p>
+        Découvrez les principales manifestations scientifiques,
+        pédagogiques et culturelles organisées par l'UFR.
+    </p>
+
+</section>
+
+<section class="activites-grid">
+
+{% for activite in activites %}
+
+<div class="activite-card {% if activite.vedette %}activite-principale{% endif %}">
+
+    <div class="activite-image">
+
+        <img src="{{ url_for('static', filename='images/' ~ activite.image_activite) }}" alt="{{ activite.titre_activite }}">
+
+
+    </div>
+
+    <div class="activite-contenu">
+
+        <div class="date">
+            <i class="fas fa-calendar"></i>
+            {{ activite.date_activite }}
+        </div>
+
+        <h3>
+            {{ activite.titre_activite }}
+        </h3>
+
+        <p>
+            {{ activite.description_activite }}
+        </p>
+
+        <a href="#" class="btn-lire">
+            En savoir plus
+        </a>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+</section>
+
+<section class="participer">
+
+    <div class="participer-contenu">
+
+        <h2>Participez à la vie de l'UFR STA</h2>
+
+        <p>
+
+            Les activités organisées par l'UFR Sciences et Technologies
+            Avancées offrent aux étudiants l'opportunité de développer
+            leurs compétences, d'élargir leurs connaissances et de vivre
+            une expérience universitaire enrichissante.
+
+        </p>
+
+        <a href="{{ url_for('contact') }}" class="btn-hero">
+
+            Nous contacter
+
+        </a>
+
+    </div>
+
+</section>
+{% endblock %}
+</main>
