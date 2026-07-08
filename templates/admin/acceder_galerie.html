@@ -1,0 +1,449 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Gestion de la galerie{% endblock %}
+
+{% block content %}
+
+<section class="acces-actu">
+
+<div class="titre-actu-acces">
+
+    <h1>
+        <i class="fas fa-images"></i>
+        Gestion de la galerie
+    </h1>
+
+    <a href="{{ url_for('dashboard') }}" class="btn-retour">
+        <i class="fas fa-arrow-left"></i>
+        Dashboard
+    </a>
+
+</div>
+
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+
+{% for category, message in messages %}
+
+<div class="flash {{ category }}">
+    {{ message }}
+</div>
+
+{% endfor %}
+
+{% endif %}
+{% endwith %}
+
+
+
+<!-- ================= CREER ALBUM ================= -->
+
+
+<form method="POST"
+      class="acces-actu-form gerer-actu-form">
+
+
+<h2>
+    <i class="fas fa-folder-plus"></i>
+    Nouvel album
+</h2>
+
+
+<input type="hidden"
+       name="type"
+       value="add_album">
+
+
+
+<input type="text"
+       name="titre_album"
+       placeholder="Titre de l'album"
+       required>
+
+
+
+<textarea
+name="description_album"
+placeholder="Description de l'album"></textarea>
+
+
+
+<input type="text"
+       name="date_album"
+       placeholder="Date"
+       required>
+
+
+
+<label>
+    Images de l'album
+</label>
+
+
+<textarea
+name="images_album"
+rows="6"
+placeholder="photo1.jpg
+photo2.jpg
+photo3.jpg"
+required></textarea>
+
+
+<small>
+Une image par ligne dans static/images/
+</small>
+
+
+
+<button type="submit">
+
+<i class="fas fa-plus"></i>
+
+Créer album
+
+</button>
+
+
+</form>
+
+
+
+
+
+<!-- ================= LISTE ALBUMS ================= -->
+
+
+<div class="liste-actus">
+
+
+{% for album in albums %}
+
+
+
+<article class="carte-actu-acces album-admin-card">
+
+
+
+<div class="album-admin-layout">
+
+
+
+<div class="contenu-actu-acces album-admin-info">
+
+
+<span class="badge">
+Galerie
+</span>
+
+
+
+<h2>
+{{ album.titre_album }}
+</h2>
+
+
+
+<p>
+{{ album.description_album }}
+</p>
+
+
+
+<small>
+
+<i class="fas fa-calendar"></i>
+
+{{ album.date_album }}
+
+</small>
+
+
+
+
+<div class="actions">
+
+
+<a href="#"
+class="btn-modifier"
+onclick="afficherAjoutPhoto('{{ album.id_album }}'); return false;">
+
+<i class="fas fa-image"></i>
+
+Ajouter photos
+
+</a>
+
+
+
+
+<a href="{{ url_for('acceder_galerie', delete_album=album.id_album) }}"
+class="btn-supprimer"
+onclick="return confirm('Supprimer cet album ?')">
+
+<i class="fas fa-trash"></i>
+
+Supprimer
+
+</a>
+
+
+</div>
+
+
+
+
+
+<!-- AJOUT PHOTO ALBUM -->
+
+<form method="POST"
+id="ajout-photo-{{ album.id_album }}"
+class="acces-actu-form gerer-actu-form"
+style="display:none;">
+
+
+<input type="hidden"
+name="type"
+value="add_photo">
+
+
+<input type="hidden"
+name="album_id"
+value="{{ album.id_album }}">
+
+
+
+<textarea
+name="images_album"
+rows="5"
+placeholder="photo4.jpg
+photo5.jpg"></textarea>
+
+
+
+<button type="submit">
+
+<i class="fas fa-plus"></i>
+
+Ajouter
+
+</button>
+
+
+</form>
+
+
+
+</div>
+
+
+
+
+
+<!-- MODIFIER ALBUM -->
+
+
+<form method="POST"
+class="acces-actu-form gerer-actu-form album-admin-form">
+
+
+<input type="hidden"
+name="type"
+value="update_album">
+
+
+<input type="hidden"
+name="id_album"
+value="{{ album.id_album }}">
+
+
+
+<input type="text"
+name="titre_album"
+value="{{ album.titre_album }}"
+required>
+
+
+
+<textarea
+name="description_album">
+{{ album.description_album }}
+</textarea>
+
+
+
+<input type="text"
+name="date_album"
+value="{{ album.date_album }}"
+required>
+
+
+
+<button type="submit">
+
+<i class="fas fa-save"></i>
+
+Enregistrer
+
+</button>
+
+
+
+</form>
+
+
+
+</div>
+
+
+
+
+
+
+<!-- ================= PHOTOS ================= -->
+
+
+<section class="album-photos-panel">
+
+
+<h3 class="album-photos-title">
+
+Photos de l'album
+
+</h3>
+
+
+
+
+<div class="album-photos-grid">
+
+
+
+{% for photo in album.photos %}
+
+
+
+<figure class="album-photo-card">
+
+
+
+<img
+src="{{ url_for('static', filename='images/' ~ photo.image_album) }}"
+alt="{{ photo.image_album }}">
+
+
+
+
+
+<div class="actions">
+
+
+<a href="#"
+class="btn-modifier"
+onclick="afficherModificationPhoto('{{ photo.id_photo }}'); return false;">
+
+<i class="fas fa-edit"></i>
+
+Modifier
+
+</a>
+
+
+
+
+
+<a href="{{ url_for('acceder_galerie', delete_photo=photo.id_photo) }}"
+class="btn-supprimer"
+onclick="return confirm('Supprimer cette photo ?')">
+
+<i class="fas fa-trash"></i>
+
+Supprimer
+
+</a>
+
+
+</div>
+
+
+
+
+
+
+
+<form method="POST"
+id="modifier-photo-{{photo.id_photo}}"
+class="acces-actu-form gerer-actu-form"
+style="display:none;">
+
+
+
+<input type="hidden"
+name="type"
+value="update_photo">
+
+
+
+<input type="hidden"
+name="id_photo"
+value="{{ photo.id_photo }}">
+
+
+
+<input type="text"
+name="image_album"
+value="{{ photo.image_album }}"
+required>
+
+
+
+
+<button type="submit">
+
+<i class="fas fa-save"></i>
+
+Enregistrer
+
+</button>
+
+
+</form>
+
+
+
+
+
+</figure>
+
+
+
+{% endfor %}
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+</article>
+
+
+
+{% endfor %}
+
+
+
+</div>
+
+
+
+</section>
+
+
+{% endblock %}

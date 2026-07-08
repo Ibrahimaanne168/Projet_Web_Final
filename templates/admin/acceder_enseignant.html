@@ -1,0 +1,195 @@
+
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Gestion des enseignants{% endblock %}
+
+{% block content %}
+
+<section class="acces-enseignant">
+
+    <div class="titre-enseignant-acces">
+
+        <h1>
+
+            <i class="fas fa-chalkboard-teacher"></i>
+
+            Gestion des enseignants
+
+        </h1>
+
+        <a href="{{ url_for('dashboard') }}" class="btn-retour">
+
+            <i class="fas fa-arrow-left"></i>
+
+            Dashboard
+
+        </a>
+
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category,message in messages %}
+                <div class="flash {{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" class="acces-enseignant-form">
+
+        <h2>
+
+            {% if enseignant %}
+                Modifier un enseignant
+            {% else %}
+                Ajouter un enseignant
+            {% endif %}
+
+        </h2>
+
+        <input
+            type="hidden"
+            name="id_enseignant"
+            value="{{ enseignant.id_enseignant if enseignant else '' }}">
+
+        <input
+            type="text"
+            name="nom"
+            placeholder="Nom complet"
+            value="{{ enseignant.nom if enseignant else '' }}"
+            required>
+
+        <input
+            type="text"
+            name="grade"
+            placeholder="Grade (Professeur, Assistant...)"
+            value="{{ enseignant.grade if enseignant else '' }}"
+            required>
+
+        <input
+            type="text"
+            name="departement"
+            placeholder="Département"
+            value="{{ enseignant.departement if enseignant else '' }}"
+            required>
+
+        <input
+            type="email"
+            name="email"
+            placeholder="Adresse e-mail"
+            value="{{ enseignant.email if enseignant else '' }}"
+            required>
+
+        <textarea
+            name="recherche"
+            rows="6"
+            placeholder="Domaines de recherche"
+            required>{{ enseignant.recherche if enseignant else '' }}</textarea>
+
+        <input
+            type="text"
+            name="photo"
+            placeholder="Nom de l'image (ex : enseignant.jpg)"
+            value="{{ enseignant.photo if enseignant else '' }}"
+            required>
+
+        <button type="submit">
+
+            <i class="fas fa-save"></i>
+
+            {% if enseignant %}
+                Enregistrer les modifications
+            {% else %}
+                Ajouter l'enseignant
+            {% endif %}
+
+        </button>
+
+    </form>
+
+    <div class="liste-enseignants">
+
+        {% for enseignant in enseignants %}
+
+        <article class="carte-enseignant">
+
+            <img
+                src="{{ url_for('static', filename='images/' ~ enseignant.photo) }}"
+                alt="{{ enseignant.nom }}">
+
+            <div class="contenu-enseignant">
+
+                <span class="badge">
+
+                    {{ enseignant.departement }}
+
+                </span>
+
+                <h2>
+
+                    {{ enseignant.nom }}
+
+                </h2>
+
+                <h4>
+
+                    {{ enseignant.grade }}
+
+                </h4>
+
+                <p>
+
+                    {{ enseignant.recherche[:150] }}{% if enseignant.recherche|length > 150 %}...{% endif %}
+
+                </p>
+
+                <small>
+
+                    <i class="fas fa-envelope"></i>
+
+                    {{ enseignant.email }}
+
+                </small>
+
+                <div class="actions">
+
+                    <a
+                        href="{{ url_for('acceder_enseignant', modifier=enseignant.id_enseignant) }}"
+                        class="btn-modifier">
+
+                        <i class="fas fa-pen"></i>
+
+                        Modifier
+
+                    </a>
+
+                    <a
+                        href="{{ url_for('acceder_enseignant', supprimer=enseignant.id_enseignant) }}"
+                        class="btn-supprimer"
+                        onclick="return confirm('Supprimer cet enseignant ?')">
+
+                        <i class="fas fa-trash"></i>
+
+                        Supprimer
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </article>
+
+        {% else %}
+
+        <p>Aucun enseignant enregistré.</p>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,167 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Gestion des maquettes{% endblock %}
+
+{% block content %}
+
+<section class="acces-actu">
+
+    <div class="titre-actu-acces">
+
+        <h1>
+
+            <i class="fas fa-file-image"></i>
+
+            Gestion des maquettes
+
+        </h1>
+
+        <a href="{{ url_for('acceder_formation') }}" class="btn-retour">
+
+            <i class="fas fa-arrow-left"></i>
+
+            Retour
+
+        </a>
+
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+
+                <div class="flash {{ category }}">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" class="acces-actu-form">
+
+        <h2>
+
+            {% if maquette %}
+                Modifier une maquette
+            {% else %}
+                Ajouter une maquette
+            {% endif %}
+
+        </h2>
+
+        <input
+            type="hidden"
+            name="id"
+            value="{{ maquette.id if maquette else '' }}">
+
+        <select name="filiere_id" required>
+
+            <option value="">Choisir une formation</option>
+
+            {% for filiere in filieres %}
+
+            <option
+                value="{{ filiere.id }}"
+                {% if maquette and maquette.filiere_id == filiere.id %}selected{% endif %}>
+
+                {{ filiere.nom }}
+
+            </option>
+
+            {% endfor %}
+
+        </select>
+
+        <input
+            type="number"
+            name="semestre"
+            placeholder="Semestre"
+            value="{{ maquette.semestre if maquette else '' }}"
+            required>
+
+        <input
+            type="text"
+            name="image"
+            placeholder="Nom de l'image"
+            value="{{ maquette.image if maquette else '' }}"
+            required>
+
+        <button type="submit">
+
+            <i class="fas fa-save"></i>
+
+            {% if maquette %}
+                Enregistrer les modifications
+            {% else %}
+                Ajouter la maquette
+            {% endif %}
+
+        </button>
+
+    </form>
+
+    <div class="liste-actus">
+
+        {% for maquette in maquettes %}
+
+        <article class="carte-actu-acces">
+
+            <img
+                src="{{ url_for('static', filename='images/' ~ maquette.image) }}"
+                alt="Maquette">
+
+            <div class="contenu-actu-acces">
+
+                <h2>
+
+                    {{ maquette.nom }}
+
+                </h2>
+
+                <p>
+
+                    Semestre {{ maquette.semestre }}
+
+                </p>
+
+                <div class="actions">
+
+                    <a
+                        href="{{ url_for('acceder_maquette', modifier=maquette.id) }}"
+                        class="btn-modifier">
+
+                        <i class="fas fa-pen"></i>
+
+                        Modifier
+
+                    </a>
+
+                    <a
+                        href="{{ url_for('acceder_maquette', supprimer=maquette.id) }}"
+                        class="btn-supprimer"
+                        onclick="return confirm('Supprimer cette maquette ?')">
+
+                        <i class="fas fa-trash"></i>
+
+                        Supprimer
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </article>
+
+        {% else %}
+
+        <p>Aucune maquette enregistrée.</p>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}
