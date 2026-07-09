@@ -1198,7 +1198,7 @@ main{
 .why{
     width:92%;
     max-width:1200px;
-    margin:0 auto 32px;
+    margin:10px auto 32px;
 }
 
 .presentation h2,
@@ -2740,18 +2740,6 @@ blockquote{
 
 }
 
-.activite-image{
-
-    background:#eef3f8;
-
-}
-
-.activite-image img{
-
-    display:block;
-
-}
-
 blockquote{
 
     background:#f8fbff;
@@ -4213,11 +4201,17 @@ blockquote{
     box-shadow:0 10px 24px rgba(20,46,86,.04);
 }
 
-.acces-actu .carte-actu-acces img{
+.acces-actu .carte-actu-acces > img{
     width:100%;
     aspect-ratio: 2/1;
     object-fit:cover;
     border-radius:14px;
+}
+
+.acces-actu .carte-actu-acces .departement-chef-photo{
+    display:flex;
+    justify-content:center;
+    margin-top:1rem;
 }
 
 .acces-actu .album-admin-card{
@@ -4368,7 +4362,7 @@ blockquote{
         align-items:center;
     }
 
-    .acces-actu .carte-actu-acces img{
+    .acces-actu .carte-actu-acces > img{
         width:100%;
         height:auto;
         aspect-ratio:1/1;
@@ -4406,7 +4400,7 @@ blockquote{
         gap:1.1rem;
     }
 
-    .acces-actu .carte-actu-acces img{
+    .acces-actu .carte-actu-acces > img{
         width:100%;
         height:auto;
         aspect-ratio:1/1;
@@ -4873,11 +4867,14 @@ blockquote{
 }
 
 .acceder_departement_cd{
-    width:120px;
-    height:120px;
-    border-radius:50%;
-    margin-top:15px;
+    display:block;
+    aspect-ratio: 1/1;
+    width:130px;
+    height:130px;
     object-fit:cover;
+    border-radius:50%;
+    margin:15px auto 0;
+    border:3px solid rgba(36,20,11,.1);
 }
 
 .separation-admin{
