@@ -81,11 +81,15 @@ def activites():
 @app.route("/departements")
 def departements():
 
-    cursor = mysql.connection.cursor()
+    cursor = mysql.connection.cursor(DictCursor)
 
-    cursor.execute("SELECT * FROM departements")
+    cursor.execute("SELECT * FROM departements ORDER BY ordre")
 
     departements = cursor.fetchall()
+
+    for departement in departements:
+        cursor.execute("SELECT * FROM filieres WHERE departement_id=%s ORDER BY ordre", (departement["id"],))
+        departement["filieres"] = cursor.fetchall()
 
     cursor.close()
 
